@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Model for {{ make }}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            text-align: center;
+            background-color: #f4f4f4;
+        }
+        .container {
+            width: 80%;
+            max-width: 400px;
+            background-color: white;
+            padding: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        h1 {
+            color: #333;
+        }
+        select {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+            display: none; /* Initially hide the button */
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #carImage {
+            margin-top: 20px;
+            max-width: 100%;
+            height: auto;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Select a Model for {{ make }}</h1>
+        <form action="{{ url_for('select_model') }}" method="POST">
+            <select name="model" id="modelSelect" onchange="showImage()">
+                <option value="">Select a Model</option>
+                {% for model in models %}
+                    <option value="{{ model }}" data-image="{{ url_for('static', filename='images/' + model + '.jpg') }}">{{ model }}</option>
+                {% endfor %}
+            </select>
+            <img id="carImage" src="" alt="Car Image">
+            <button type="submit" id="nextButton">Next</button>
+        </form>
+    </div>
+
+    <script>
+        function showImage() {
+            var select = document.getElementById("modelSelect");
+            var selectedOption = select.options[select.selectedIndex];
+            var imageUrl = selectedOption.getAttribute("data-image");
+
+            var carImage = document.getElementById("carImage");
+            var nextButton = document.getElementById("nextButton");
+
+            if (imageUrl) {
+                carImage.src = imageUrl;
+                carImage.style.display = "block"; // Show image
+                nextButton.style.display = "block"; // Show the "Next" button
+            } else {
+                carImage.style.display = "none"; // Hide image
+                nextButton.style.display = "none"; // Hide the "Next" button
+            }
+        }
+    </script>
+</body>
+</html>

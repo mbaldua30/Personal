@@ -1,0 +1,41 @@
+/* style.css */
+
+/* Button Group Styling */
+.button-group {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.button-group button {
+    padding: 10px 20px;
+    margin: 5px;
+    cursor: pointer;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
+
+.button-group button:hover {
+    background-color: #0056b3;
+}
+
+/* Section Styling */
+.section {
+    display: none;
+}
+
+.section h2 {
+    text-align: center;
+}
+
+.section ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.section ul li {
+    padding: 5px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}

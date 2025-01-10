@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Summary</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            text-align: center;
+            background-color: #f4f4f4;
+        }
+        .container {
+            width: 80%;
+            max-width: 400px;
+            background-color: white;
+            padding: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        h1 {
+            color: #333;
+        }
+        p {
+            margin: 10px 0;
+            font-size: 16px;
+        }
+        .button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: none;
+            font-size: 16px;
+            background-color: #007BFF;
+            color: white;
+            cursor: pointer;
+            text-decoration: none;
+            display: block;
+            text-align: center;
+        }
+        .button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Your Order Summary</h1>
+        <p><strong>Make:</strong> {{ selection['make'] }}</p>
+        <p><strong>Model:</strong> {{ selection['model'] }}</p>
+        <p><strong>Variant:</strong> {{ selection['variant'] }}</p>
+        <p><strong>Accessory:</strong> {{ selection['accessory'] }}</p>
+        <p><strong>Color:</strong> {{ selection['color'] }}</p>
+        <p><strong>Quantity:</strong> {{ selection['quantity'] }}</p>
+        <p><strong>Email:</strong> {{ selection['email'] }}</p>
+        <p><strong>Phone:</strong> {{ selection['phone'] }}</p>
+        <h2>Thank you for your order!</h2>
+        <a href="{{ url_for('home') }}" class="button">Back to Start</a>
+    </div>
+</body>
+</html>

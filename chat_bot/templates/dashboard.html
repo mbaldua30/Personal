@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Dashboard</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center my-4">
+            <h1>Customer Dashboard</h1>
+            <form action="{{ url_for('logout') }}" method="post">
+                <button type="submit" class="btn btn-danger">Logout</button>
+            </form>
+        </div>
+
+        <table class="table table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Make</th>
+                    <th>Model</th>
+                    <th>Variant</th>
+                    <th>Accessory</th>
+                    <th>Color</th>
+                    <th>Quantity</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Order Placed</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in customer_data %}
+                <tr>
+                    <td>{{ row['ID'] }}</td>
+                    <td>{{ row['make'] }}</td>
+                    <td>{{ row['model'] }}</td>
+                    <td>{{ row['variant'] }}</td>
+                    <td>{{ row['accessory'] }}</td>
+                    <td>{{ row['color'] }}</td>
+                    <td>{{ row['quantity'] }}</td>
+                    <td>{{ row['email'] }}</td>
+                    <td>{{ row['phone'] }}</td>
+                    <td>
+                        <form action="{{ url_for('update_order_status') }}" method="post">
+                            <input type="hidden" name="row_id" value="{{ row['ID'] }}">
+                            <select name="order_status" class="form-control">
+                                <option value="Not Placed" {% if row['OrderStatus'] == 'Not Placed' %}selected{% endif %}>Not Placed</option>
+                                <option value="Placed" {% if row['OrderStatus'] == 'Placed' %}selected{% endif %}>Placed</option>
+                            </select>
+                            <button type="submit" class="btn btn-primary mt-2">Update</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

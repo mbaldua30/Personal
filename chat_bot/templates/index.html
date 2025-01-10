@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Accessory Booking Bot</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            text-align: center;
+            background-color: #f4f4f4;
+        }
+        .container {
+            width: 80%;
+            max-width: 400px;
+            background-color: white;
+            padding: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        h1 {
+            color: #333;
+        }
+        h3 {
+            color: #555;
+        }
+        input[type="text"], button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+        }
+        button {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        datalist {
+            width: 100%;
+        }
+        #errorMessage {
+            color: red;
+            display: none;
+            margin-top: 10px;
+        }
+        #loading {
+            display: none;
+            margin-top: 10px;
+        }
+        .nav-link {
+            display: block;
+            margin-top: 20px;
+            font-size: 16px;
+            color: #007BFF;
+            text-decoration: none;
+        }
+        .nav-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to the Car Accessory Booking Bot</h1>
+        <form action="/select_make" method="post">
+            <h3>Select Your Car Make:</h3>
+            <input type="text" id="searchBox" name="make" list="makeList" placeholder="Search for car makes...">
+            <datalist id="makeList">
+                {% for make in data %}
+                    <option value="{{ make }}">
+                {% endfor %}
+            </datalist>
+            <div id="errorMessage">Please select a valid car make.</div>
+            <div id="loading">
+                <img src="loading-spinner.gif" alt="Loading..." width="50">
+            </div>
+            <button type="submit">Submit</button>
+        </form>
+        <a href="/dashboard" class="nav-link">Go to Dashboard</a>
+    </div>
+
+    <script>
+        const form = document.querySelector('form');
+        const errorMessage = document.getElementById('errorMessage');
+        const loading = document.getElementById('loading');
+
+        form.addEventListener('submit', function(event) {
+            const makeInput = document.getElementById('searchBox').value.trim();
+            const makeList = [...document.querySelectorAll('#makeList option')].map(option => option.value);
+
+            if (!makeList.includes(makeInput)) {
+                event.preventDefault();
+                errorMessage.style.display = 'block';
+                errorMessage.textContent = 'Please select a valid car make.';
+            } else {
+                errorMessage.style.display = 'none';
+                loading.style.display = 'block';
+            }
+        });
+    </script>
+</body>
+</html>
